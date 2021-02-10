@@ -1,0 +1,91 @@
+/*----------------------------------------------------------------------------*
+	$BUTTONS
+*----------------------------------------------------------------------------*/
+
+
+/* ^btn
+-----------------------------------------------------------------------------*/
+
+// Boton por defecto
+.o-btn
+	btn()
+	display: inline-flex
+	align-items: center
+	height: 40px
+	padding: 0 22px 4px 22px
+	border-radius: 20px
+	border: 2px solid $base-color
+	background: transparent
+	font-weight: $medium
+	font-size: 1.8rem
+	color: $base-color
+	transition: all .2s ease
+	// box-shadow: 0 3px 0 0 rgba(#000, .4)
+
+	&:hover
+		background: $base-color
+		color: #fff
+
+	[class*="icon"],
+	img
+		margin-left: 8px
+		padding-top: 5px
+		font-size: 2rem
+
+	img
+		max-width: 20px
+
+
+/**
+ *
+ * Boton con icono a la derecha:
+ * a.o-btn.icon-der(href="#.") Suscribirme #[i.icon-circle-right4]
+ *
+ * Boton con icono a la izquierda:
+ * a.o-btn.icon-iz(href="#.") #[i.icon-circle-left4] Suscribirme
+ *
+ */
+.icon-der
+	padding: 0 12px 4px 15px
+
+.icon-iz
+	padding: 0 15px 4px 12px
+
+	[class*="icon"]
+		margin-left: 0
+		margin-right: 8px
+
+
+
+
+/* ^Fin - btn
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/*	^o-btn-cerrar 'cerrar popUps'
+-------------------------------------------------------------*/
+
+.o-btn-cerrar
+	btn()
+	position: absolute
+	top: -25px
+	right: -25px
+	padding: 0
+	background: transparent
+	font-size: 2.5rem
+	color: #fff
+
+	+max('m')
+		top: -35px
+		left: 50%
+		margin-left: -1.25rem
+		right: auto
+
+	span
+		display: none
+
+/*	^Fin - o-btn-cerrar 'cerrar popUps'
+-------------------------------------------------------------*/

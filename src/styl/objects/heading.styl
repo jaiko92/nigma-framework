@@ -1,0 +1,27 @@
+/*----------------------------------------------------------------------------*
+	$HEADING
+*----------------------------------------------------------------------------*/
+
+
+for key, val in $text-size
+
+	.o-heading-{key}
+		font-family: $header-font-family
+		font-size: val
+		font-weight: $medium
+
+	.o-heading-{key}--center
+		@extend .o-heading-{key}
+		text-align: center
+
+
+
+/* ^o-heading-1
+-----------------------------------------------------------------------------*/
+
+.o-heading-1
+	text-align: center
+	color: $base2-color
+
+/* ^Fin - o-heading-1
+-----------------------------------------------------------------------------*/

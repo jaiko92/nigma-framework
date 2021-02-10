@@ -1,0 +1,235 @@
+/*----------------------------------------------------------------------------*
+	$GRID
+	Mixins para crear la grilla de con base a los parametros establecidos en
+	el archivo "base/config.styl" en la sección "Responsive Web Design".
+
+	También contiene los mixins base para crear columnas personalizadas.
+*----------------------------------------------------------------------------*/
+
+$load-grid ?= true
+
+if $load-grid && !$load-grid-flexbox
+	/* ^Bases de la grilla
+	-----------------------------------------------------------------------------*/
+
+	/**
+	 *
+	 * == grid() ==
+	 * Contenedor de las columnas
+	 *
+	 * Ejemplo de uso:
+
+			// Grid por defecto al número de columnas establecido en $grid-columns
+			// El gutter por defecto está definido en $grid-gutter
+			grid()
+
+			// Grid con parametros
+			grid(1134px, $center:true, $columns:8, $g:30px)
+
+			// Grid con columnas personalizadas
+			grid($columns:'300px 500px 150px')
+
+	 *
+	 */
+	grid($width = false, $center = false, $columns = $grid-columns, $columns-movil = $grid-columns-m, $g = $grid-gutter)
+
+		display: grid
+
+		if $columns is a 'unit'
+			grid-template-columns: repeat($columns-movil, 1fr)
+			+min('m')
+				grid-template-columns: repeat($columns, 1fr)
+		else
+			grid-template-columns: s($columns)
+
+		grid-column-gap: -add-px($g)
+
+		if $width
+			width: 100%
+			max-width: -add-px($width)
+
+		if $center
+			margin-left: auto
+			margin-right: auto
+
+
+
+	/**
+	 *
+	 * == col() ==
+	 * Define ancho y offset para una columna
+	 *
+	 * Ejemplo de uso:
+
+			// Generar una columna de 5 espacios
+			col(5)
+
+			// Generar una columa de 3 espacios con un offset de 2 espacios
+			col(3, 2)
+
+	 *
+	 */
+	col($cols = 1, $offset = false)
+
+		if $offset
+			grid-column-start: $offset + 1
+
+		grid-column-end: span $cols
+
+
+
+	/**
+	 *
+	 * == col-offset() ==
+	 * Margen izquierdo para separar columnas
+	 *
+	 */
+	col-offset($i = 1)
+		grid-column-start: $i + 1
+
+	/* ^Fin - Bases de la grilla
+	-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^Generadores de la grilla
+-----------------------------------------------------------------------------*/
+
+/**
+ *
+ * == grid-columns-generator() ==
+ * Genera las clases para las columnas
+ *
+ * Ejemplo:
+
+		.g-col-m-6
+		.g-col-s-8.g-col-xl-6.g-col-hd-3
+
+ *
+ */
+grid-columns-generator($cols = $grid-columns, $g = $grid-gutter, $class-name = $grid-class-name, $col-class = $grid-column-class)
+
+	for key, val in $breakpoints
+
+		// Generar clases por cada breackpoint para columas, offsets y orders
+		generate-classes()
+
+			// Columnas
+			for i in range(1, $cols, 1)
+				.{$col-class}-{key}-{i}
+					col(i)
+
+			// Offset columnas
+			for i in range(1, $cols, 1)
+				.{$col-class}-offset-{key}-{i}
+					col-offset(i)
+
+
+		if val == 0
+			generate-classes()
+
+		else
+			// Media Queries generadas con cada breakpoint
+			+min(val + 1)
+				generate-classes()
+
+
+
+/**
+ *
+ * == grid-container-generator() ==
+ * Genera las clases aplicadas al contenedor y no a sus hijos
+ *
+ * Ejemplo:
+
+	.g-container.g-m-6.g-xl-3
+		.g-col Columna 1
+		.g-col Columna 2
+		.g-col Columna 3
+		.g-col Columna 4
+
+ *
+ */
+grid-container-generator($cols = $grid-columns, $g = $grid-gutter, $class-name = $grid-class-name, $col-class = $grid-column-class)
+
+	for key, val in $breakpoints
+
+		generate-classes()
+
+			// Columnas
+			for i in range(1, $cols, 1)
+				.{$class-name}-{key}-{i} > [class~={$col-class}]
+					col(i)
+					// content: 'pepe'
+
+
+		if val == 0
+			generate-classes()
+
+		else
+			// Media Queries generadas con cada breakpoint
+			+min(val + 1)
+				generate-classes()
+
+
+/* ^Fin - Generadores de la grilla
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^Contenedores
+-----------------------------------------------------------------------------*/
+
+container-generator()
+
+	.{$grid-class-name}-container
+		width: 100%
+		margin: 0 auto
+
+		+max('l')
+			width: calc(100% - 40px)
+			margin-right: 20px
+			margin-left: 20px
+
+		+min('l')
+			max-width: 750px
+
+		+desktop()
+			max-width: 970px
+
+		+hd()
+			max-width: -add-px($container)
+
+
+	.{$grid-class-name}-container--grid
+		@extends .{$grid-class-name}-container
+		grid()
+
+
+	.{$grid-class-name}-container--full-grid
+		grid()
+
+
+	// Por defecto columnas ocupan el 100% del ancho disponible
+	[class*={$grid-column-class}]
+		col($grid-columns-m)
+
+		+min('m')
+			col($grid-columns)
+
+/* ^Fin - Contenedores
+-----------------------------------------------------------------------------*/
+
+// Si grid y flexbox están desactivados
+if $load-grid || (!$load-grid && !$load-grid-flexbox)
+	container-generator()
+
+if $load-grid && !$load-grid-flexbox
+
+	if $active-grid
+		grid-columns-generator()
+		grid-container-generator()

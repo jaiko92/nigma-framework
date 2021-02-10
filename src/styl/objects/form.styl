@@ -1,0 +1,207 @@
+/*----------------------------------------------------------------------------*
+	$O-FORM
+*----------------------------------------------------------------------------*/
+
+/* ^.o-form-input
+-----------------------------------------------------------------------------*/
+
+// input[type=text|password|number|etc]
+.o-form-field
+	appearance: none
+	width: 100%
+	height: 40px
+	padding: 0 20px 3px 20px
+	border: 2px solid #C8CDD1
+	border-radius: (@height / 2)
+	// box-shadow: 0 0 5px 0 rgba(#000, .10)
+	outline: 0
+	background: #fff
+	font-size: 1.8rem
+	font-weight: $normal
+	color: $base-text-color
+	placeholder(#94999D)
+	transition: all .3s ease
+	// placeholder(color @color,)
+
+	&:hover
+		border-color: #bcc1c1
+
+	&:focus
+		background: #fff
+		color: $base-text-color
+		// placeholder(color #D0D0D0,)
+
+
+.o-form-field--textarea
+	@extend .o-form-field
+	height: 150px
+	padding: 13px
+
+/* ^Fin - .o-form-input
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^.o-form-check
+-----------------------------------------------------------------------------*/
+
+// Contenedor del check
+.o-form-check
+	display: flex
+
+
+// input
+.o-form-check__campo
+	display: none
+
+	& + label,
+	& + span + label
+		position: relative
+		display: block
+		width: 20px
+		height: @width
+		margin-right: 12px
+		font-family: 'icomoon' !important;
+		font-size: 2rem
+		speak: none;
+		font-style: normal;
+		font-weight: normal;
+		font-variant: normal;
+		text-transform: none;
+		line-height: 1;
+		font-smoothing()
+		color: #9CA1A5
+		cursor: pointer
+
+		& + span
+			padding-top: 1px
+			font-size: 1.6rem
+			color: $base2-color
+			font-weight: $medium
+
+		&:hover
+			color: darken(#9CA1A5, 10)
+
+	// Icono checkbox
+	&[type="checkbox"] + label,
+	&[type="checkbox"] + span + label
+		&:before
+			content: "\ee6f"
+
+	// Icono radio
+	&[type="radio"] + label,
+	&[type="radio"] + span + label
+		&:before
+			content: "\ee73"
+
+	// Cuando el estado es checked
+	&:checked
+		& + label
+			color: $base-color
+
+			&:hover
+				&:before
+					color: darken($base-color, 6)
+
+		// Icono checkbox
+		&[type="checkbox"] + label
+			&:before
+				content: "\ee6e"
+
+		// Icono radio
+		&[type="radio"] + label
+			&:before
+				content: "\ee76"
+
+/* ^Fin - .o-form-check
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^Select
+	Extendido desde vendor/selectize/selectize.styl
+-----------------------------------------------------------------------------*/
+
+.selectize-input
+	@extend .o-form-field
+	position: relative
+	z-index: 1
+	overflow: hidden
+	display: inline-flex !important
+	align-items: center
+	padding: 0 30px 0 20px
+
+	> input
+		width: 100% !important
+		padding-bottom: 4px
+		border: none !important
+		font-size: 1.8rem !important
+		font-weight: $normal !important
+		color: $base-text-color !important
+		placeholder(#94999D)
+
+	> .item
+		flex: none
+		text-overflow: ellipsis
+		white-space:  nowrap
+		overflow: hidden
+		padding-bottom: 3px
+		font-size: 1.8rem
+		font-weight: $normal
+		color: $base-text-color
+
+
+// Desplegable con opciones
+.selectize-dropdown
+	position: absolute
+	overflow: hidden
+	z-index: 10
+	top: calc(100% + 2px) !important
+	border-radius: 5px
+	border: 1px solid rgba(#000, .2)
+	box-shadow: 0 2px 15px 0 rgba(#000, .20)
+	background: #fff
+	font-size: 1.5rem
+
+	.active
+		background-color: #f2f4f6
+
+/* ^Fin - Select
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^.o-form-link
+-----------------------------------------------------------------------------*/
+
+// a
+.o-form-link
+	color: #868C91
+
+	&:hover
+		color: $base-color
+
+/* ^Fin - .o-form-link
+-----------------------------------------------------------------------------*/
+
+
+
+
+
+/* ^o-form-error
+-----------------------------------------------------------------------------*/
+
+span.o-form-error
+	display: block
+	padding-left: 20px
+	font-size: 1.5rem
+	color: $base-color
+
+/* ^Fin - o-form-error
+-----------------------------------------------------------------------------*/

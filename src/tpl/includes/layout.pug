@@ -1,0 +1,39 @@
+include mixins
+doctype
+html(lang="es")
+	head
+		meta(charset="UTF-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+		//- Desactivar en dispositivos móviles la detección automática de números de teléfono, emails, direcciones y fechas.
+		meta(name="format-detection", content="telephone=no, email=no, address=no, date=no")
+
+		block title
+			title Titulo de la página
+
+		meta(name="viewport", content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0")
+
+		//- Estilos globales
+		link(rel="stylesheet", href="/assets/css/global.css",  data-turbolinks-track="reload")
+		
+		//- Turbolinks
+		script(src="/assets/js/turbolinks.js")
+		
+	body.c-block-body
+		
+		
+		block container
+			
+
+		// Popups 
+		.o-is-hidden
+			//- include global-popups
+		// Fin - Popups
+		
+			
+		// Vendors 
+		script(src="/assets/js/vendor.js", defer, data-turbolinks-eval="false", data-turbolinks-track="reload")
+
+		// Scripts globales 
+		script(src="/assets/js/global.js", defer, data-turbolinks-eval="false", data-turbolinks-track="reload")
+
+		block js_footer
